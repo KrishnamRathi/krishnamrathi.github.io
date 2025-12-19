@@ -437,12 +437,23 @@
         .timeline-duration {
             color: var(--color-text-secondary);
             font-size: 0.85rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0;
             font-style: italic;
         }
 
         .timeline-achievements {
             list-style: none;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 0;
+        }
+
+        .timeline-item-content:hover .timeline-achievements {
+            max-height: 1000px;
+            opacity: 1;
+            margin-top: 1.5rem;
         }
 
         .timeline-achievements li {
