@@ -54,6 +54,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
@@ -69,6 +70,23 @@
             display: flex;
             list-style: none;
             gap: 2rem;
+            transition: var(--transition);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 2px;
+            background: var(--color-accent);
+            border-radius: 2px;
+            transition: var(--transition);
         }
 
         nav a {
@@ -988,11 +1006,6 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .project-card {
-                min-width: 300px;
-                max-width: 300px;
-            }
-
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -1003,11 +1016,6 @@
 
             .hero .subtitle {
                 font-size: 1.1rem;
-            }
-
-            nav ul {
-                gap: 1rem;
-                font-size: 0.85rem;
             }
 
             section {
@@ -1029,27 +1037,152 @@
 
             /* Timeline mobile */
             .timeline-wrapper::before {
-                left: 20px;
+                left: 31px;
+                /* Center with 20px dot (20px + 10px + 1px) */
             }
 
             .timeline-item {
                 flex-direction: column !important;
-                margin-left: 60px;
+                margin-left: 50px !important;
+                gap: 0 !important;
             }
 
             .timeline-item-content {
+                width: 100% !important;
+                margin-left: 0 !important;
+                padding: 1.5rem !important;
+                flex-direction: column !important;
+                gap: 1rem !important;
+                overflow-wrap: break-word;
+            }
+
+            .timeline-content-text {
                 width: 100%;
             }
 
             .timeline-center {
                 position: absolute;
-                left: 0;
-                width: auto;
-                padding: 0;
+                left: -50px;
+                top: 0;
+                width: 40px;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                padding-top: 1.5rem;
+                z-index: 5;
             }
 
             .timeline-dot {
-                margin-left: 5px;
+                margin: 0 !important;
+            }
+
+            /* Navigation Mobile */
+            .menu-toggle {
+                display: flex;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: rgba(15, 20, 25, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2.5rem;
+                z-index: 1000;
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+                transition: var(--transition);
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            nav a {
+                font-size: 1.2rem;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .projects-carousel-wrapper {
+                padding: 1rem 0;
+                margin: 0;
+            }
+
+            .carousel-nav-btn {
+                display: none;
+            }
+
+            .projects-carousel {
+                gap: 1.5rem;
+                padding: 0 1rem;
+                margin: 1rem 0;
+            }
+
+            .project-card {
+                min-width: 85vw;
+                max-width: 85vw;
+            }
+
+            .skills-carousel-wrapper {
+                padding: 1rem 0;
+            }
+
+            .skill-icon {
+                min-width: 100px;
+                padding: 1rem;
+            }
+
+            .skill-icon-emoji {
+                font-size: 2.5rem;
+            }
+
+            .certifications-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container-wide {
+                padding: 0 1rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .highlight {
+                display: block;
+            }
+
+            .role-typing-container {
+                font-size: 1.1rem;
+            }
+
+            section h2 {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -1060,7 +1193,12 @@
     <nav>
         <div class="container">
             <div class="logo">KR</div>
-            <ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul id="navMenu">
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#internships">Internships</a></li>
                 <li><a href="#projects">Projects</a></li>
@@ -1084,7 +1222,8 @@
             </div>
             <p
                 style="color: var(--color-text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Building scalable, distributed systems at Google. 3+ years crafting high-impact solutions with expertise
+                Building scalable, distributed systems at Google. 3.5+ years crafting high-impact solutions with
+                expertise
                 in system design, data structures, and cloud technologies.
             </p>
             <div class="cta-buttons">
@@ -1906,20 +2045,54 @@
             });
         }
 
+        // Mobile Menu Functionality
+        function initMobileMenu() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            const navLinks = document.querySelectorAll('#navMenu a');
+
+            if (!menuToggle || !navMenu) return;
+
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            });
+
+            // Close menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target) && navMenu.classList.contains('active')) {
+                    menuToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
         // Initialize when DOM is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
                 initRoleTypewriter();
                 initDispersionEffect();
                 initProjectCarousel();
+                initMobileMenu();
             });
         } else {
             initRoleTypewriter();
             initDispersionEffect();
             initProjectCarousel();
+            initMobileMenu();
         }
     </script>
-    </parameter>
 </body>
 
 </html>
