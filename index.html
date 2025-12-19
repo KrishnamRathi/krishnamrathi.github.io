@@ -49,7 +49,7 @@
         }
 
         nav .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -264,9 +264,13 @@
 
         /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
+        }
+
+        .container-wide {
+            max-width: 1600px;
         }
 
         /* Sections */
@@ -700,46 +704,92 @@
         }
 
         /* Projects Cards */
-        .projects-cards-container {
+        /* Projects Carousel */
+        /* Projects Carousel */
+        .projects-carousel-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 3rem 60px;
+            /* Added horizontal padding for buttons */
             display: flex;
-            gap: 2rem;
+            align-items: center;
+        }
+
+        .projects-carousel {
+            display: flex;
+            gap: 2.5rem;
+            width: 100%;
             overflow-x: auto;
-            padding: 2rem 0;
             scroll-behavior: smooth;
-            scrollbar-width: thin;
-            scrollbar-color: var(--color-accent) rgba(0, 212, 255, 0.1);
+            scrollbar-width: none;
+            /* Hide scrollbar for cleaner look */
+            -ms-overflow-style: none;
+            padding: 1rem 0;
+            margin: 2rem;
         }
 
-        .projects-cards-container::-webkit-scrollbar {
-            height: 8px;
+        .projects-carousel::-webkit-scrollbar {
+            display: none;
+            /* Hide scrollbar for Chrome/Safari */
         }
 
-        .projects-cards-container::-webkit-scrollbar-track {
+        .carousel-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
             background: rgba(0, 212, 255, 0.1);
-            border-radius: 4px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50%;
+            color: var(--color-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            transition: var(--transition);
+            font-size: 1.5rem;
         }
 
-        .projects-cards-container::-webkit-scrollbar-thumb {
+        .carousel-nav-btn:hover {
             background: var(--color-accent);
-            border-radius: 4px;
+            color: var(--color-bg);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
         }
 
-        .projects-cards-container::-webkit-scrollbar-thumb:hover {
-            background: var(--color-accent-dark);
+        .carousel-nav-btn.prev {
+            left: 5px;
+        }
+
+        .carousel-nav-btn.next {
+            right: 5px;
+        }
+
+        @media (max-width: 1200px) {
+            .carousel-nav-btn.prev {
+                left: 10px;
+            }
+
+            .carousel-nav-btn.next {
+                right: 10px;
+            }
         }
 
         .project-card {
-            min-width: 350px;
-            max-width: 350px;
+            min-width: 380px;
+            max-width: 380px;
             background: var(--color-surface);
             border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 2rem;
             transition: var(--transition);
             display: flex;
             flex-direction: column;
-            opacity: 0;
-            animation: slideIn 0.6s ease forwards;
+            position: relative;
+            overflow: hidden;
         }
 
         .project-card:nth-child(1) {
@@ -760,21 +810,47 @@
             transform: translateY(-8px);
         }
 
+        .project-image-container {
+            width: 100%;
+            height: 180px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            position: relative;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .project-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card:hover .project-image-container img {
+            transform: scale(1.1);
+        }
+
         .project-icon {
-            width: 80px;
-            height: 80px;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg, var(--color-accent), #00ff88);
-            border-radius: 16px;
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            font-size: 1.5rem;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 5;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             transition: var(--transition);
         }
 
         .project-card:hover .project-icon {
-            transform: scale(1.1) rotate(5deg);
+            transform: translateY(-5px) scale(1.1);
         }
 
         .project-card h3 {
@@ -845,6 +921,69 @@
             border-radius: 12px;
             font-size: 0.75rem;
             border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            color: #4ade80;
+            transform: translateX(5px);
+        }
+
+        /* Certifications Section */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .cert-card {
+            background: var(--color-surface);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cert-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+        }
+
+        .cert-issuer {
+            font-size: 0.85rem;
+            color: var(--color-accent);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cert-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-text);
+            line-height: 1.4;
+        }
+
+        .cert-date {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            font-style: italic;
         }
 
         /* Responsive */
@@ -926,6 +1065,7 @@
                 <li><a href="#internships">Internships</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
+                <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -1126,83 +1266,145 @@
 
     <!-- Projects Section -->
     <section class="experience" id="projects" style="background: rgba(0, 212, 255, 0.02);">
-        <div class="container">
+        <div class="container container-wide">
             <h2>Projects</h2>
-            <div class="projects-cards-container">
-
-                <!-- Mediknot -->
-                <div class="project-card">
-                    <div class="project-icon">🏥</div>
-                    <h3>Mediknot</h3>
-                    <div class="project-type">Web Application</div>
-                    <div class="project-date">July 2021</div>
-                    <ul class="project-description">
-                        <li>Stores all patient's medical history including consultations, prescriptions, treatments, and
-                            reports at a single place</li>
-                        <li>Displays visualization of different health related data</li>
-                        <li>Features include video conferencing with doctor, find nearby doctors, and chatbot</li>
-                        <li>Took ownership of frontend development and backend planning</li>
-                    </ul>
-                    <div class="project-tech">
-                        <div class="project-tech-label">Technologies</div>
-                        <div class="project-tech-tags">
-                            <span class="project-tech-tag">ReactJs</span>
-                            <span class="project-tech-tag">MySQL</span>
-                            <span class="project-tech-tag">Dialog-flow</span>
-                            <span class="project-tech-tag">Spring-Boot</span>
+            <div class="projects-carousel-wrapper">
+                <button class="carousel-nav-btn prev" id="prevProjectBtn">&lsaquo;</button>
+                <div class="projects-carousel" id="projectsCarousel">
+                    <!-- Original set -->
+                    <!-- Mediknot -->
+                    <div class="project-card">
+                        <div class="project-image-container">
+                            <img src="./images/mediknot.png" alt="Mediknot">
+                            <div class="project-icon">🏥</div>
+                        </div>
+                        <h3>Mediknot</h3>
+                        <div class="project-type">SaaS Platform</div>
+                        <div class="project-date">July 2021</div>
+                        <ul class="project-description">
+                            <li>Mediknot is a Saas that centralise all the medical history and records of a patient</li>
+                            <li>Other features are virtual consultation, find nearby doctors, analyse medical data etc
+                            </li>
+                            <li>Took ownership of frontend development and backend planning</li>
+                        </ul>
+                        <div class="project-tech">
+                            <div class="project-tech-label">Technologies</div>
+                            <div class="project-tech-tags">
+                                <span class="project-tech-tag">ReactJs</span>
+                                <span class="project-tech-tag">MySQL</span>
+                                <span class="project-tech-tag">Dialog-flow</span>
+                                <span class="project-tech-tag">Spring-Boot</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Digital Menu -->
-                <div class="project-card">
-                    <div class="project-icon">📱</div>
-                    <h3>Digital Menu</h3>
-                    <div class="project-type">Android Application</div>
-                    <div class="project-date">May 2021</div>
-                    <ul class="project-description">
-                        <li>Allows customers to make contactless orders at any restaurant using QR code Scanner</li>
-                        <li>Integrated UPI payment for seamless transactions</li>
-                        <li>Admin panel for managing orders and menu for restaurants</li>
-                    </ul>
-                    <div class="project-tech">
-                        <div class="project-tech-label">Technologies</div>
-                        <div class="project-tech-tags">
-                            <span class="project-tech-tag">React Native</span>
-                            <span class="project-tech-tag">Redux</span>
-                            <span class="project-tech-tag">JWT</span>
-                            <span class="project-tech-tag">Firebase</span>
+                    <!-- Digital Menu -->
+                    <div class="project-card">
+                        <div class="project-image-container">
+                            <img src="./images/digimenu1.jpg" alt="Digital Menu">
+                            <div class="project-icon">📱</div>
+                        </div>
+                        <h3>Digital Menu</h3>
+                        <div class="project-type">Android Application</div>
+                        <div class="project-date">May 2021</div>
+                        <ul class="project-description">
+                            <li>An android application that allows customers to make contactless orders at any
+                                restaurant
+                                with the help of QR code scanner and Upi payments</li>
+                            <li>Implemented real-time order tracking and admin dashboard</li>
+                        </ul>
+                        <div class="project-tech">
+                            <div class="project-tech-label">Technologies</div>
+                            <div class="project-tech-tags">
+                                <span class="project-tech-tag">React Native</span>
+                                <span class="project-tech-tag">Redux</span>
+                                <span class="project-tech-tag">JWT</span>
+                                <span class="project-tech-tag">Firebase</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Age Well -->
-                <div class="project-card">
-                    <div class="project-icon">🏡</div>
-                    <h3>Age Well</h3>
-                    <div class="project-type">Web Application</div>
-                    <div class="project-date">March 2021</div>
-                    <ul class="project-description">
-                        <li>Helps old people find best old age home as per their needs</li>
-                        <li>Enables donations to old age homes based on their specific requirements</li>
-                    </ul>
-                    <div class="project-tech">
-                        <div class="project-tech-label">Technologies</div>
-                        <div class="project-tech-tags">
-                            <span class="project-tech-tag">ReactJs</span>
-                            <span class="project-tech-tag">NodeJs</span>
-                            <span class="project-tech-tag">MySQL</span>
+                    <!-- PetCare -->
+                    <div class="project-card">
+                        <div class="project-image-container">
+                            <img src="./images/petcare.png" alt="PetCare">
+                            <div class="project-icon">🐾</div>
+                        </div>
+                        <h3>PetCare</h3>
+                        <div class="project-type">Mobile Application</div>
+                        <div class="project-date">September 2021</div>
+                        <ul class="project-description">
+                            <li>An application for pet's online consultation with doctors, booking appoinments and many
+                                more</li>
+                            <li>User can also buy pet supplies and products from the application</li>
+                        </ul>
+                        <div class="project-tech">
+                            <div class="project-tech-label">Technologies</div>
+                            <div class="project-tech-tags">
+                                <span class="project-tech-tag">React Native</span>
+                                <span class="project-tech-tag">NodeJS</span>
+                                <span class="project-tech-tag">Firebase</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                    <!-- Age Well -->
+                    <div class="project-card">
+                        <div class="project-image-container">
+                            <img src="./images/agewell.png" alt="Age Well">
+                            <div class="project-icon">🏡</div>
+                        </div>
+                        <h3>Age Well</h3>
+                        <div class="project-type">Web Application</div>
+                        <div class="project-date">March 2021</div>
+                        <ul class="project-description">
+                            <li>This website helps old people to find best old age for them as per their needs</li>
+                            <li>Any person can make donations as per needs of old age</li>
+                        </ul>
+                        <div class="project-tech">
+                            <div class="project-tech-label">Technologies</div>
+                            <div class="project-tech-tags">
+                                <span class="project-tech-tag">ReactJs</span>
+                                <span class="project-tech-tag">NodeJs</span>
+                                <span class="project-tech-tag">MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DiscAll -->
+                    <div class="project-card">
+                        <div class="project-image-container">
+                            <img src="./images/discall.png" alt="DiscAll">
+                            <div class="project-icon">💬</div>
+                        </div>
+                        <h3>DiscAll</h3>
+                        <div class="project-type">Web Application</div>
+                        <div class="project-date">Jan 2021</div>
+                        <ul class="project-description">
+                            <li>A platform where people of different community can interact by creating rooms and chat
+                                in
+                                real time</li>
+                            <li>Integrated real-time database and secure authentication</li>
+                        </ul>
+                        <div class="project-tech">
+                            <div class="project-tech-label">Technologies</div>
+                            <div class="project-tech-tags">
+                                <span class="project-tech-tag">ReactJS</span>
+                                <span class="project-tech-tag">Firebase</span>
+                                <span class="project-tech-tag">Socket.io</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <button class="carousel-nav-btn next" id="nextProjectBtn">&rsaquo;</button>
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
     <section class="skills" id="skills">
-        <div class="container">
+        <div class="container container-wide">
             <h2>Skills &amp; Expertise</h2>
             <div class="skills-carousel-wrapper">
                 <div class="skills-carousel" id="skillsCarousel">
@@ -1349,6 +1551,36 @@
         </div>
     </section>
 
+    <!-- Certifications Section -->
+    <section class="certifications" id="certifications" style="background: rgba(0, 212, 255, 0.05);">
+        <div class="container container-wide">
+            <h2>Certifications</h2>
+            <div class="certifications-grid">
+                <!-- Coursera -->
+                <div class="cert-card">
+                    <div class="cert-issuer">Coursera</div>
+                    <div class="cert-title">Server-side Development with NodeJS, Express and MongoDB</div>
+                    <div class="cert-date">September 2020</div>
+                    <a href="https://www.coursera.org/account/accomplishments/certificate/XL2L9CVZBX6G" target="_blank"
+                        class="project-link">
+                        View Certificate <span>&rarr;</span>
+                    </a>
+                </div>
+
+                <!-- Udemy -->
+                <div class="cert-card">
+                    <div class="cert-issuer">Udemy</div>
+                    <div class="cert-title">Learn React by Building Real Projects</div>
+                    <div class="cert-date">April 2020</div>
+                    <a href="https://udemy-certificate.s3.amazonaws.com/image/UC-b17777fc-4ea5-4f6a-9664-a039d03fe24a.jpg?v=1588177585000"
+                        target="_blank" class="project-link">
+                        View Certificate <span>&rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Education Section -->
     <section class="education" id="education">
         <div class="container">
@@ -1393,32 +1625,29 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2>Let&apos;s Connect</h2>
-            <div class="contact-info">
-                <a href="mailto:krishnam.rathi@gmail.com" class="contact-link">
-                    <img src="https://img.icons8.com/color/48/000000/email.png" alt="Email"
-                        style="width: 24px; height: 24px;"> krishnam.rathi@gmail.com
-                </a>
-                <a href="tel:+918435912066" class="contact-link">
-                    <img src="https://img.icons8.com/color/48/000000/phone.png" alt="Phone"
-                        style="width: 24px; height: 24px;">
-                    +91 8435912066
-                </a>
-                <a href="#" class="contact-link">
-                    <img src="https://img.icons8.com/color/48/000000/linkedin.png" alt="LinkedIn Profile"
-                        style="width: 24px; height: 24px;">
-                    LinkedIn Profile
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Krishnam Rathi. All rights reserved. | Crafted with passion for excellence.</p>
+        <div>
+            <h2>Contact</h2>
+        </div>
+        <div class="contact-info">
+            <a href="mailto:krishnam.rathi@gmail.com" class="contact-link">
+                <img src="https://img.icons8.com/color/48/000000/email.png" alt="Email"
+                    style="width: 24px; height: 24px;"> krishnam.rathi@gmail.com
+            </a>
+            <a href="tel:+918435912066" class="contact-link">
+                <img src="https://img.icons8.com/color/48/000000/phone.png" alt="Phone"
+                    style="width: 24px; height: 24px;">
+                +91 8435912066
+            </a>
+            <a href="#" class="contact-link">
+                <img src="https://img.icons8.com/color/48/000000/linkedin.png" alt="LinkedIn Profile"
+                    style="width: 24px; height: 24px;">
+                LinkedIn Profile
+            </a>
+        </div>
+        <p>&copy; 2025 Krishnam Rathi. All rights reserved. | Crafted with passion for excellence.
+        </p>
     </footer>
 
     <script>
@@ -1658,15 +1887,36 @@
             animate();
         }
 
+        // Projects Carousel Navigation
+        function initProjectCarousel() {
+            const carousel = document.getElementById('projectsCarousel');
+            const prevBtn = document.getElementById('prevProjectBtn');
+            const nextBtn = document.getElementById('nextProjectBtn');
+
+            if (!carousel || !prevBtn || !nextBtn) return;
+
+            const scrollAmount = 420; // card width (380) + gap (40)
+
+            nextBtn.addEventListener('click', () => {
+                carousel.scrollLeft += scrollAmount;
+            });
+
+            prevBtn.addEventListener('click', () => {
+                carousel.scrollLeft -= scrollAmount;
+            });
+        }
+
         // Initialize when DOM is ready
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', () => {
                 initRoleTypewriter();
                 initDispersionEffect();
+                initProjectCarousel();
             });
         } else {
             initRoleTypewriter();
             initDispersionEffect();
+            initProjectCarousel();
         }
     </script>
     </parameter>
