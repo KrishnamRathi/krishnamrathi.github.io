@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishnam Rathi - Software Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg: #0f1419;
+            --color-surface: #1a1f2e;
+            --color-accent: #00d4ff;
+            --color-accent-dark: #0099cc;
+            --color-text: #e8eaed;
+            --color-text-secondary: #b0b3b8;
+            --color-success: #4ade80;
+            --color-warning: #fbbf24;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 20, 25, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--color-accent), #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            margin-top: 60px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 255, 136, 0.02) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -5%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(20px);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .hero .highlight {
+            background: linear-gradient(135deg, var(--color-accent), #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+            min-width: fit-content;
+        }
+
+        /* Role Typing Effect */
+        .role-typing-container {
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            margin: 0.5rem 0 2rem 0;
+            min-height: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .role-text {
+            display: inline-block;
+            min-height: 1.2em;
+            font-weight: 500;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            animation: blink 0.7s step-end infinite;
+            width: 3px;
+            height: 1.5em;
+            background: var(--color-accent);
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+
+            0%,
+            49% {
+                opacity: 1;
+            }
+
+            50%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-accent), #00ff88);
+            color: var(--color-bg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--color-accent);
+            color: var(--color-accent);
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-accent), transparent);
+            margin: 1rem auto 0;
+        }
+
+        /* Timeline Section */
+        .experience {
+            background: rgba(0, 212, 255, 0.02);
+        }
+
+        .timeline-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        /* Central vertical line */
+        .timeline-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--color-accent), rgba(0, 212, 255, 0.2));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+            display: flex;
+            opacity: 0;
+            animation: slideIn 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .timeline-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-item-content {
+            width: 45%;
+            padding: 2rem;
+            background: var(--color-surface);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            transition: var(--transition);
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .timeline-item-content:hover {
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .timeline-center {
+            width: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 2rem;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--color-accent);
+            border: 3px solid var(--color-bg);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            position: relative;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover .timeline-dot {
+            width: 28px;
+            height: 28px;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
+        }
+
+        .timeline-logo {
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .timeline-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 0.5rem;
+            border-radius: 25%;
+        }
+
+        .timeline-content-text {
+            flex: 1;
+        }
+
+        .timeline-item-content h3 {
+            color: var(--color-accent);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            font-weight: 700;
+            color: var(--color-accent);
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-role {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-duration {
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .timeline-achievements {
+            list-style: none;
+        }
+
+        .timeline-achievements li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        .timeline-achievements li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+
+        /* Skills Section */
+        .skills {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 255, 136, 0.02) 100%);
+        }
+
+        .skills-carousel-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .skills-carousel {
+            display: flex;
+            gap: 2rem;
+            animation: scroll 30s linear infinite;
+            width: fit-content;
+        }
+
+        .skills-carousel:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .skill-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.5rem;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            min-width: 120px;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .skill-icon:hover {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: var(--color-accent);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 212, 255, 0.2);
+        }
+
+        .skill-icon-emoji {
+            font-size: 3rem;
+        }
+
+        .skill-icon-label {
+            color: var(--color-text);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--color-surface);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .skill-category:hover {
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+        }
+
+        .skill-category h3 {
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .skill-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--color-accent);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--color-accent);
+        }
+
+        /* Education Section */
+        .education {
+            background: rgba(0, 212, 255, 0.02);
+        }
+
+        .education-item {
+            background: var(--color-surface);
+            border-left: 4px solid var(--color-accent);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .education-item:hover {
+            transform: translateX(5px);
+        }
+
+        .degree {
+            color: var(--color-accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .school {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .grad-date {
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Achievements Section */
+        .achievements-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 255, 136, 0.02) 100%);
+        }
+
+        .achievements-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .achievement-item {
+            background: var(--color-surface);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .achievement-item:hover {
+            border-color: var(--color-accent);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.15);
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-item h3 {
+            color: var(--color-accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-item p {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: rgba(0, 212, 255, 0.02);
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-link:hover {
+            color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-surface);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 2rem;
+            text-align: center;
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .role-typing-container {
+                font-size: 1.2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            section h2 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Timeline mobile */
+            .timeline-wrapper::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: column !important;
+                margin-left: 60px;
+            }
+
+            .timeline-item-content {
+                width: 100%;
+            }
+
+            .timeline-center {
+                position: absolute;
+                left: 0;
+                width: auto;
+                padding: 0;
+            }
+
+            .timeline-dot {
+                margin-left: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">KR</div>
+            <ul>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Krishnam <span class="highlight">Rathi</span></h1>
+            <div class="role-typing-container">
+                <span class="role-text" id="roleText">Software Engineer</span><span class="typing-cursor"></span>
+            </div>
+            <p
+                style="color: var(--color-text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Building scalable, distributed systems at Google. 3+ years crafting high-impact solutions with expertise
+                in system design, data structures, and cloud technologies.
+            </p>
+            <div class="cta-buttons">
+                <a href="#experience" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section with Timeline -->
+    <section class="experience" id="experience">
+        <div class="container">
+            <h2>Professional Experience</h2>
+            <div class="timeline-wrapper">
+
+                <!-- Google -->
+                <div class="timeline-item">
+                    <div class="timeline-item-content">
+                        <div class="timeline-logo">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/61685274-ceb8-4af8-97dc-12282c7e6499"
+                                alt="Google">
+                        </div>
+                        <div class="timeline-content-text">
+                            <div class="timeline-company">Google</div>
+                            <div class="timeline-role">Software Engineer - Google Maps</div>
+                            <div class="timeline-duration">Sep 2024 - Present</div>
+                            <ul class="timeline-achievements">
+                                <li>Designed record replay library achieving 99.5% mapcore test consistency</li>
+                                <li>Accelerated mapcore test efficiency by 20% across Android &amp; iOS</li>
+                                <li>Optimized cache storage utilization by 80% with compression logic</li>
+                                <li>Reduced debugging time by 20% with consolidated real device logs dashboard</li>
+                                <li>Increased test coverage by 100% on real devices</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-center">
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+
+                <!-- Amazon (Merged) -->
+                <div class="timeline-item">
+                    <div class="timeline-item-content">
+                        <div class="timeline-logo">
+                            <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/8409e7f1-8da9-40b3-bc93-70718fd3d316"
+                                alt="Amazon">
+                        </div>
+                        <div class="timeline-content-text">
+                            <div class="timeline-company">Amazon</div>
+                            <div class="timeline-role">SDE - AWS Lex, Bedrock &amp; Distributed Database</div>
+                            <div class="timeline-duration">Jul 2022 - Sep 2024</div>
+                            <ul class="timeline-achievements">
+                                <li>Engineered BedrockAgentIntent reducing chatbot creation effort by 60%</li>
+                                <li>Integrated Generative AI capabilities saving 24-48 hours of dev time</li>
+                                <li>Improved developer efficiency by 30% with deployed feature</li>
+                                <li>Resolved critical customer tickets reducing ops load by 35%</li>
+                                <li>Delivered SSD-based caching feature enabling 10X faster read operations</li>
+                                <li>Optimized partition operations by 2X with Actor &amp; State Machine patterns</li>
+                                <li>Implemented persistent metadata store with 100% data consistency</li>
+                                <li>Worked with Java, C++, Rust on large-scale distributed systems</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-center">
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills" id="skills">
+        <div class="container">
+            <h2>Skills &amp; Expertise</h2>
+            <div class="skills-carousel-wrapper">
+                <div class="skills-carousel" id="skillsCarousel">
+                    <!-- First set -->
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">⚙️</div>
+                        <div class="skill-icon-label">System Design</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🔗</div>
+                        <div class="skill-icon-label">Distributed Sys</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">📊</div>
+                        <div class="skill-icon-label">Data Structures</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🧮</div>
+                        <div class="skill-icon-label">Algorithms</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">💾</div>
+                        <div class="skill-icon-label">Database</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">☕</div>
+                        <div class="skill-icon-label">Java</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🟨</div>
+                        <div class="skill-icon-label">JavaScript</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">⚡</div>
+                        <div class="skill-icon-label">C++</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🦀</div>
+                        <div class="skill-icon-label">Rust</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🐍</div>
+                        <div class="skill-icon-label">Python</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">⚛️</div>
+                        <div class="skill-icon-label">ReactJS</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">📱</div>
+                        <div class="skill-icon-label">React Native</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🖥️</div>
+                        <div class="skill-icon-label">NodeJS</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">☁️</div>
+                        <div class="skill-icon-label">AWS</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">📡</div>
+                        <div class="skill-icon-label">gRPC</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🔧</div>
+                        <div class="skill-icon-label">Git</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🐳</div>
+                        <div class="skill-icon-label">Docker</div>
+                    </div>
+                    <!-- Duplicate set for seamless loop -->
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">⚙️</div>
+                        <div class="skill-icon-label">System Design</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🔗</div>
+                        <div class="skill-icon-label">Distributed Sys</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">📊</div>
+                        <div class="skill-icon-label">Data Structures</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🧮</div>
+                        <div class="skill-icon-label">Algorithms</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">💾</div>
+                        <div class="skill-icon-label">Database</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">☕</div>
+                        <div class="skill-icon-label">Java</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🟨</div>
+                        <div class="skill-icon-label">JavaScript</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">⚡</div>
+                        <div class="skill-icon-label">C++</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🦀</div>
+                        <div class="skill-icon-label">Rust</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🐍</div>
+                        <div class="skill-icon-label">Python</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">⚛️</div>
+                        <div class="skill-icon-label">ReactJS</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">📱</div>
+                        <div class="skill-icon-label">React Native</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🖥️</div>
+                        <div class="skill-icon-label">NodeJS</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">☁️</div>
+                        <div class="skill-icon-label">AWS</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">📡</div>
+                        <div class="skill-icon-label">gRPC</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🔧</div>
+                        <div class="skill-icon-label">Git</div>
+                    </div>
+                    <div class="skill-icon">
+                        <div class="skill-icon-emoji">🐳</div>
+                        <div class="skill-icon-label">Docker</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education" id="education">
+        <div class="container">
+            <h2>Education &amp; Achievements</h2>
+
+            <div style="margin-bottom: 3rem;">
+                <h3 style="font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--color-text);">Academic Background</h3>
+                <div class="education-item">
+                    <div class="degree">B.Tech. in Information Technology</div>
+                    <div class="timeline-item-content"
+                        style="border: 0; transition: none; transform: none; border-color: #032a37; box-shadow: none; margin-left: -2rem;">
+                        <div class="timeline-logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/4/4b/SGSITS_Indore.png" alt="SGSITS">
+                        </div>
+                        <div>
+                            <div class="school">Shri G.S. Institute of Technology and Science, Indore</div>
+                            <div class="grad-date">August 2018 - May 2022</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 style="font-size: 1.3rem; margin-bottom: 1.5rem; color: var(--color-text);">Achievements &amp;
+                    Recognition</h3>
+                <div class="education-item">
+                    <div class="degree">🏆 Google Maps Renderer Launch Award</div>
+                    <div class="school">Recognized for significant contributions to Google Maps renderer launch</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">🥇 ICPC 2020 Regional Rank</div>
+                    <div class="school">Top 5% among ~60,000 competitors in ICPC 2020 Regionalist competition</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">👨‍💼 Codefoster Club President</div>
+                    <div class="school">Led college coding club: 20 technical sessions &amp; 5 competitive events</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Let&apos;s Connect</h2>
+            <div class="contact-info">
+                <a href="mailto:krishnam.rathi@gmail.com" class="contact-link">
+                    📧 krishnam.rathi@gmail.com
+                </a>
+                <a href="tel:+918435912066" class="contact-link">
+                    📱 +91 8435912066
+                </a>
+                <a href="#" class="contact-link">
+                    💼 LinkedIn Profile
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Krishnam Rathi. All rights reserved. | Crafted with passion for excellence.</p>
+    </footer>
+
+    <script>
+        // Role typing effect with delete and retype cycle
+        function initRoleTypewriter() {
+            const roleElement = document.getElementById('roleText');
+            if (!roleElement) return;
+
+            const roles = [
+                'Software Engineer',
+                'Backend Developer',
+                'Full Stack Developer'
+            ];
+
+            let roleIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let isWaiting = false;
+
+            function typeRole() {
+                if (isWaiting) return;
+
+                const currentRole = roles[roleIndex];
+
+                if (!isDeleting && charIndex < currentRole.length) {
+                    // Typing phase - add one character
+                    charIndex++;
+                    roleElement.textContent = currentRole.substring(0, charIndex);
+                    setTimeout(typeRole, 80);
+                } else if (!isDeleting && charIndex === currentRole.length) {
+                    // Pause after full text typed
+                    isWaiting = true;
+                    setTimeout(() => {
+                        isWaiting = false;
+                        isDeleting = true;
+                        typeRole();
+                    }, 1500);
+                } else if (isDeleting && charIndex > 0) {
+                    // Deleting phase - remove one character
+                    charIndex--;
+                    roleElement.textContent = currentRole.substring(0, charIndex);
+                    setTimeout(typeRole, 60);
+                } else if (isDeleting && charIndex === 0) {
+                    // Move to next role
+                    isDeleting = false;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    isWaiting = true;
+                    setTimeout(() => {
+                        isWaiting = false;
+                        typeRole();
+                    }, 300);
+                }
+            }
+
+            // Start the effect
+            typeRole();
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initRoleTypewriter);
+        } else {
+            initRoleTypewriter();
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+    </parameter>
+</body>
+
+</html>
