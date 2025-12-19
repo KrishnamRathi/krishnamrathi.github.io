@@ -154,6 +154,28 @@
             min-width: fit-content;
         }
 
+        /* Particle Dispersion Canvas */
+        .hero-name-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        #heroName {
+            opacity: 0;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        #particleCanvas {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            cursor: pointer;
+        }
+
         /* Role Typing Effect */
         .role-typing-container {
             font-size: 1.5rem;
@@ -666,8 +688,161 @@
             font-size: 0.85rem;
         }
 
+        /* Projects Cards */
+        .projects-cards-container {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 2rem 0;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--color-accent) rgba(0, 212, 255, 0.1);
+        }
+
+        .projects-cards-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .projects-cards-container::-webkit-scrollbar-track {
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .projects-cards-container::-webkit-scrollbar-thumb {
+            background: var(--color-accent);
+            border-radius: 4px;
+        }
+
+        .projects-cards-container::-webkit-scrollbar-thumb:hover {
+            background: var(--color-accent-dark);
+        }
+
+        .project-card {
+            min-width: 350px;
+            max-width: 350px;
+            background: var(--color-surface);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: slideIn 0.6s ease forwards;
+        }
+
+        .project-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .project-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .project-card:hover {
+            border-color: var(--color-accent);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.25);
+            transform: translateY(-8px);
+        }
+
+        .project-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--color-accent), #00ff88);
+            border-radius: 16px;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .project-card h3 {
+            color: var(--color-accent);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-type {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .project-date {
+            color: var(--color-text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .project-description {
+            list-style: none;
+            flex: 1;
+        }
+
+        .project-description li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        .project-description li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+
+        .project-tech {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .project-tech-label {
+            color: var(--color-text);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .project-tech-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--color-accent);
+            padding: 0.3rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
+            .project-card {
+                min-width: 300px;
+                max-width: 300px;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -737,6 +912,8 @@
             <div class="logo">KR</div>
             <ul>
                 <li><a href="#experience">Experience</a></li>
+                <li><a href="#internships">Internships</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -747,7 +924,10 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Krishnam <span class="highlight">Rathi</span></h1>
+            <div class="hero-name-container">
+                <h1 id="heroName">Krishnam <span class="highlight">Rathi</span></h1>
+                <canvas id="particleCanvas"></canvas>
+            </div>
             <div class="role-typing-container">
                 <span class="role-text" id="roleText">Software Engineer</span><span class="typing-cursor"></span>
             </div>
@@ -821,6 +1001,190 @@
                         <div class="timeline-dot"></div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Internships Section -->
+    <section class="experience" id="internships"
+        style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 255, 136, 0.02) 100%);">
+        <div class="container">
+            <h2>Internships</h2>
+            <div class="timeline-wrapper">
+
+                <!-- Samsung Research Institute -->
+                <div class="timeline-item">
+                    <div class="timeline-item-content">
+                        <div class="timeline-logo">
+                            <div
+                                style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #00d4ff, #4ade80); border-radius: 12px; font-weight: 800; font-size: 1.2rem; color: var(--color-bg);">
+                                S</div>
+                        </div>
+                        <div class="timeline-content-text">
+                            <div class="timeline-company">Samsung Research Institute, Noida</div>
+                            <div class="timeline-role">Software Development Intern</div>
+                            <div class="timeline-duration">Jan 2022 – June 2022</div>
+                            <ul class="timeline-achievements">
+                                <li>Improved HR application, reduced response time to HR inquiries by 50% and 40%
+                                    reduction in
+                                    administrative workload</li>
+                                <li>Appraised the application’s performance by 50% by integrating Redux library.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-center">
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+
+                <!-- Arachnomesh Technologies -->
+                <div class="timeline-item">
+                    <div class="timeline-item-content">
+                        <div class="timeline-logo">
+                            <div
+                                style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--color-accent), #00ff88); border-radius: 12px; font-weight: 800; font-size: 1.2rem; color: var(--color-bg);">
+                                AT</div>
+                        </div>
+                        <div class="timeline-content-text">
+                            <div class="timeline-company">Arachnomesh Technologies Pvt. Ltd.</div>
+                            <div class="timeline-role">Software Development Intern (Remote)</div>
+                            <div class="timeline-duration">Sept 2021 – Jan 2022</div>
+                            <ul class="timeline-achievements">
+                                <li>Developed user management module using NodeJs and PostgreSQL. Implemented frontend
+                                    automation testing in Angular web application</li>
+                                <li>Automated recruitment process using Google App Script</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-center">
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+
+                <!-- AD Infra -->
+                <div class="timeline-item">
+                    <div class="timeline-item-content">
+                        <div class="timeline-logo">
+                            <div
+                                style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #00ff88, var(--color-accent)); border-radius: 12px; font-weight: 800; font-size: 1.2rem; color: var(--color-bg);">
+                                AD</div>
+                        </div>
+                        <div class="timeline-content-text">
+                            <div class="timeline-company">AD Infra Pvt. Ltd.</div>
+                            <div class="timeline-role">Full Stack Development Intern (Remote)</div>
+                            <div class="timeline-duration">May 2021 – Aug 2021</div>
+                            <ul class="timeline-achievements">
+                                <li>Developed web application using NextJs, Redux, NodeJs, MySQL and AWS S3. Developed
+                                    different REST APIs for the application</li>
+                                <li>Integrated OTP based authentication using JWT</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-center">
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+
+                <!-- TDi -->
+                <div class="timeline-item">
+                    <div class="timeline-item-content">
+                        <div class="timeline-logo">
+                            <div
+                                style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--color-accent), #00ff88); border-radius: 12px; font-weight: 800; font-size: 1.2rem; color: var(--color-bg);">
+                                TD</div>
+                        </div>
+                        <div class="timeline-content-text">
+                            <div class="timeline-company">TDi</div>
+                            <div class="timeline-role">Mobile App Development Intern (Remote)</div>
+                            <div class="timeline-duration">May 2020 – July 2020</div>
+                            <ul class="timeline-achievements">
+                                <li>Developed mobile application for zoo activity management</li>
+                                <li>Used React Native for mobile app development and NodeJS for REST APIs development
+                                </li>
+                                <li>Refactored thousands of lines of code increasing app performance by 2x</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-center">
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="experience" id="projects" style="background: rgba(0, 212, 255, 0.02);">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="projects-cards-container">
+
+                <!-- Mediknot -->
+                <div class="project-card">
+                    <div class="project-icon">🏥</div>
+                    <h3>Mediknot</h3>
+                    <div class="project-type">Web Application</div>
+                    <div class="project-date">July 2021</div>
+                    <ul class="project-description">
+                        <li>Stores all patient's medical history including consultations, prescriptions, treatments, and
+                            reports at a single place</li>
+                        <li>Displays visualization of different health related data</li>
+                        <li>Features include video conferencing with doctor, find nearby doctors, and chatbot</li>
+                        <li>Took ownership of frontend development and backend planning</li>
+                    </ul>
+                    <div class="project-tech">
+                        <div class="project-tech-label">Technologies</div>
+                        <div class="project-tech-tags">
+                            <span class="project-tech-tag">ReactJs</span>
+                            <span class="project-tech-tag">MySQL</span>
+                            <span class="project-tech-tag">Dialog-flow</span>
+                            <span class="project-tech-tag">Spring-Boot</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Menu -->
+                <div class="project-card">
+                    <div class="project-icon">📱</div>
+                    <h3>Digital Menu</h3>
+                    <div class="project-type">Android Application</div>
+                    <div class="project-date">May 2021</div>
+                    <ul class="project-description">
+                        <li>Allows customers to make contactless orders at any restaurant using QR code Scanner</li>
+                        <li>Integrated UPI payment for seamless transactions</li>
+                        <li>Admin panel for managing orders and menu for restaurants</li>
+                    </ul>
+                    <div class="project-tech">
+                        <div class="project-tech-label">Technologies</div>
+                        <div class="project-tech-tags">
+                            <span class="project-tech-tag">React Native</span>
+                            <span class="project-tech-tag">Redux</span>
+                            <span class="project-tech-tag">JWT</span>
+                            <span class="project-tech-tag">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Age Well -->
+                <div class="project-card">
+                    <div class="project-icon">🏡</div>
+                    <h3>Age Well</h3>
+                    <div class="project-type">Web Application</div>
+                    <div class="project-date">March 2021</div>
+                    <ul class="project-description">
+                        <li>Helps old people find best old age home as per their needs</li>
+                        <li>Enables donations to old age homes based on their specific requirements</li>
+                    </ul>
+                    <div class="project-tech">
+                        <div class="project-tech-label">Technologies</div>
+                        <div class="project-tech-tags">
+                            <span class="project-tech-tag">ReactJs</span>
+                            <span class="project-tech-tag">NodeJs</span>
+                            <span class="project-tech-tag">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1112,6 +1476,180 @@
                 }
             });
         });
+
+        // Advanced Particle Dispersion Effect (Ultra-Refined)
+        function initDispersionEffect() {
+            const canvas = document.getElementById('particleCanvas');
+            const heroName = document.getElementById('heroName');
+            if (!canvas || !heroName) return;
+
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            let particles = [];
+            let animationId;
+            const mouse = { x: null, y: null, radius: 120 };
+
+            function initCanvas() {
+                const rect = heroName.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+
+                const padding = 150;
+                canvas.width = (rect.width + padding * 2) * dpr;
+                canvas.height = (rect.height + padding * 2) * dpr;
+                canvas.style.width = `${rect.width + padding * 2}px`;
+                canvas.style.height = `${rect.height + padding * 2}px`;
+                ctx.scale(dpr, dpr);
+
+                drawTextToParticles();
+            }
+
+            class Particle {
+                constructor(x, y, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.baseX = x;
+                    this.baseY = y;
+                    this.color = color;
+                    this.size = 0.9;
+                    this.density = (Math.random() * 20) + 1; // Reduced density for slower dispersion
+                    this.friction = 0.92; // Slightly higher friction for smoother/slower feel
+                    this.ease = 0.08; // Much slower return to home
+                    this.vx = 0;
+                    this.vy = 0;
+                }
+
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(this.x, this.y, this.size, this.size);
+                }
+
+                update() {
+                    const dxHome = this.baseX - this.x;
+                    const dyHome = this.baseY - this.y;
+                    this.vx += dxHome * this.ease;
+                    this.vy += dyHome * this.ease;
+
+                    if (mouse.x !== null && mouse.y !== null) {
+                        const dxMouse = mouse.x - this.x;
+                        const dyMouse = mouse.y - this.y;
+                        const distanceSq = dxMouse * dxMouse + dyMouse * dyMouse;
+                        const radiusSq = mouse.radius * mouse.radius;
+
+                        if (distanceSq < radiusSq) {
+                            const distance = Math.sqrt(distanceSq);
+                            const force = (mouse.radius - distance) / mouse.radius;
+                            const forceDirectionX = dxMouse / distance;
+                            const forceDirectionY = dyMouse / distance;
+
+                            // Overall slower dispersion speed as requested
+                            const dispersionPower = 0.5;
+                            this.vx -= forceDirectionX * force * this.density * dispersionPower;
+                            this.vy -= forceDirectionY * force * this.density * dispersionPower;
+                        }
+                    }
+
+                    this.vx *= this.friction;
+                    this.vy *= this.friction;
+                    this.x += this.vx;
+                    this.y += this.vy;
+                }
+            }
+
+            function drawTextToParticles() {
+                const rect = heroName.getBoundingClientRect();
+                const padding = 150;
+                const dpr = window.devicePixelRatio || 1;
+
+                ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
+
+                const style = window.getComputedStyle(heroName);
+                ctx.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+                ctx.textBaseline = 'middle';
+
+                const centerX = (rect.width + padding * 2) / 2;
+                const centerY = (rect.height + padding * 2) / 2;
+
+                // Measure parts to center the whole name correctly
+                const firstName = "Krishnam ";
+                const lastName = "Rathi";
+                const firstNameWidth = ctx.measureText(firstName).width;
+                const lastNameWidth = ctx.measureText(lastName).width;
+                const totalWidth = firstNameWidth + lastNameWidth;
+
+                let currentX = centerX - totalWidth / 2;
+
+                // 1. Draw "Krishnam " in white (#e8eaed)
+                ctx.fillStyle = '#e8eaed';
+                ctx.fillText(firstName, currentX, centerY);
+
+                // 2. Clear currentX and add width
+                currentX += firstNameWidth;
+
+                // 3. Draw "Rathi" in gradient
+                const gradient = ctx.createLinearGradient(0, 0, rect.width, 0);
+                gradient.addColorStop(0, '#00d4ff');
+                gradient.addColorStop(1, '#00ff88');
+                ctx.fillStyle = gradient;
+                ctx.fillText(lastName, currentX, centerY);
+
+                const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                particles = [];
+
+                const step = 1;
+                for (let y = 0; y < data.height; y += step) {
+                    for (let x = 0; x < data.width; x += step) {
+                        const alphaIdx = (y * data.width + x) * 4 + 3;
+                        if (data.data[alphaIdx] > 128) {
+                            const r = data.data[alphaIdx - 3];
+                            const g = data.data[alphaIdx - 2];
+                            const b = data.data[alphaIdx - 1];
+                            const color = `rgba(${r},${g},${b},${data.data[alphaIdx] / 255})`;
+                            particles.push(new Particle(x / dpr, y / dpr, color));
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                const dpr = window.devicePixelRatio || 1;
+                ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                animationId = requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+            });
+
+            window.addEventListener('mouseleave', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            window.addEventListener('resize', () => {
+                cancelAnimationFrame(animationId);
+                initCanvas();
+                animate();
+            });
+
+            initCanvas();
+            animate();
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                initRoleTypewriter();
+                initDispersionEffect();
+            });
+        } else {
+            initRoleTypewriter();
+            initDispersionEffect();
+        }
     </script>
     </parameter>
 </body>
